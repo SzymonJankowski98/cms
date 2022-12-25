@@ -1,28 +1,19 @@
 <script>
-  import Toolbar from "$lib/components/Toolbar.svelte";
+  import Fa from 'svelte-fa';
+  import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-  let page = [
-    [
-      { content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi ducimus ipsam modi porro earum nobis? Cupiditate, ducimus dignissimos explicabo magni quod eius nemo, iure consequatur quasi quaerat sequi perspiciatis. Quos." },
-      { content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi ducimus ipsam modi porro earum nobis? Cupiditate, ducimus dignissimos explicabo magni quod eius nemo, iure consequatur quasi quaerat sequi perspiciatis. Quos." }
-    ],
-    [
-      { content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi ducimus ipsam modi porro earum nobis? Cupiditate, ducimus dignissimos explicabo magni quod eius nemo, iure consequatur quasi quaerat sequi perspiciatis. Quos." },
-      { content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi ducimus ipsam modi porro earum nobis? Cupiditate, ducimus dignissimos explicabo magni quod eius nemo, iure consequatur quasi quaerat sequi perspiciatis. Quos." }
-    ],
-    [
-      { content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi ducimus ipsam modi porro earum nobis? Cupiditate, ducimus dignissimos explicabo magni quod eius nemo, iure consequatur quasi quaerat sequi perspiciatis. Quos." },
-      { content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi ducimus ipsam modi porro earum nobis? Cupiditate, ducimus dignissimos explicabo magni quod eius nemo, iure consequatur quasi quaerat sequi perspiciatis. Quos." }
-    ]
-  ];
+  import Toolbar from "$lib/components/Toolbar.svelte";
+  import PageEditorStore from "$lib/pageEditorStore";
+
+  let page = PageEditorStore();
 </script>
 
 <head>
-    <title>Edit Page</title>
+  <title>Edit Page</title>
 </head>
 
-<main  class="flex flex-col">
-  {#each page as row}
+<main class="flex flex-col">
+  {#each $page as row}
     <Toolbar type="vertical">
       <div class="flex flex-row justify-between">
         {#each row as { content }}
@@ -35,4 +26,9 @@
       </div>
     </Toolbar>
   {/each}
+  <div class="flex justify-center">
+    <button class="flex justify-center m-2 p-2 w-96 bg-slate-400 rounded-md">
+      <Fa class="text-lg text-white" icon={faPlus}/>
+    </button>
+  </div>
 </main>
