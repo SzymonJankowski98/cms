@@ -1,15 +1,11 @@
 <script>
-  import { faSquarePlus, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-  import ToolbarButton from './ToolbarButton.svelte';
-
   export let type = "horizontal";
 </script>
 
 <div class="group relative [&>.toolbar]:hover:flex grow">
-  <slot></slot>
-  <div class="hidden toolbar absolute {type} top-0 bg-slate-400">
-    <ToolbarButton icon={faSquarePlus}/>
-    <ToolbarButton icon={faPenToSquare}/>
+  <slot name="content"/>
+  <div class="hidden toolbar absolute {type} top-0 justify-center items-center bg-slate-400">
+    <slot name="buttons"/>
   </div>
 </div>
 
