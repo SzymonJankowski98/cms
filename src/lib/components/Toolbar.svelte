@@ -5,7 +5,7 @@
   export let type = "horizontal";
 </script>
 
-<div class="group relative [&>.toolbar]:hover:flex">
+<div class="group relative [&>.toolbar]:hover:flex grow">
   <slot></slot>
   <div class="hidden toolbar absolute {type} top-0 bg-slate-400">
     <ToolbarButton icon={faSquarePlus}/>

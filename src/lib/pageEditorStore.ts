@@ -15,14 +15,6 @@ const defaultPageContent = [
   ]
 ];
 
-const PageEditorStore = () => {
-  const { set, update, subscribe } = writable(defaultPageContent);
-
-  return {
-    set,
-    update,
-    subscribe
-  }
-}
+const PageEditorStore = writable(defaultPageContent);
 
 export default PageEditorStore;
