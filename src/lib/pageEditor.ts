@@ -7,8 +7,13 @@ export const defaultPageContent = [
   defaultRow
 ];
 
-export function addColumnToRow(page: any, rowIndex: any) {
-  const newRow = [...page[rowIndex], defaultColumn]
-  page.splice(rowIndex, 1, newRow);
+export function addRow(page: any, rowIndex: number ) {
+  page.splice(rowIndex, 0, defaultRow);
+  return page
+};
+
+export function addColumn(page: any, rowIndex: number) {
+  const updatedRow = [...page[rowIndex], defaultColumn]
+  page.splice(rowIndex, 1, updatedRow);
   return page;
-}
+};
