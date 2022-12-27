@@ -8,8 +8,9 @@
 
   import Toolbar from "$lib/components/Toolbar.svelte";
   import ToolbarButton from '$lib/components/ToolbarButton.svelte';
-  import PageEditorStore from "$lib/pageEditorStore";
+  import { PageEditorStore, addColumn } from "$lib/pageEditorStore";
   import AddRowButton from '$lib/components/addRowButton.svelte';
+
 </script>
 
 <head>
@@ -17,7 +18,7 @@
 </head>
 
 <main class="flex flex-col">
-  {#each $PageEditorStore as row}
+  {#each $PageEditorStore as row, rowIndex}
     <Toolbar type="vertical">
       <div slot="content" class="flex flex-row justify-between">
         {#each row as { content }}
@@ -26,16 +27,16 @@
               {content}
             </div>
             <svelte:fragment slot="buttons">
-              <ToolbarButton icon={faPenToSquare}/>
-              <ToolbarButton icon={faTrash}/>
+              <ToolbarButton action={()=>{}} icon={faPenToSquare}/>
+              <ToolbarButton action={()=>{}} icon={faTrash}/>
             </svelte:fragment>
           </Toolbar>
         {/each}
       </div>
       <svelte:fragment slot="buttons">
-        <ToolbarButton icon={faSquarePlus}/>
-        <ToolbarButton icon={faGripVertical}/>
-        <ToolbarButton icon={faTrash}/>
+        <ToolbarButton action={()=>{addColumn(rowIndex)}} icon={faSquarePlus}/>
+        <ToolbarButton action={()=>{}} icon={faGripVertical}/>
+        <ToolbarButton action={()=>{}} icon={faTrash}/>
       </svelte:fragment>
     </Toolbar>
   {/each}
