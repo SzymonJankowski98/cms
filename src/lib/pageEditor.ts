@@ -9,11 +9,24 @@ export const defaultPageContent = [
 
 export function addRow(page: any, rowIndex: number ) {
   page.splice(rowIndex, 0, defaultRow);
-  return page
+  return page;
+};
+
+export function deleteRow(page: any, rowIndex: number ) {
+  page.splice(rowIndex, 1);
+  return page;
 };
 
 export function addColumn(page: any, rowIndex: number) {
   const updatedRow = [...page[rowIndex], defaultColumn]
   page.splice(rowIndex, 1, updatedRow);
+  return page;
+};
+
+export function deleteColumn(page: any, rowIndex: number, columnIndex: number) {
+  const updatedRow = [...page[rowIndex]];
+  updatedRow.splice(columnIndex, 1);
+  page.splice(rowIndex, 1, updatedRow);
+  if (page[rowIndex].length == 0) deleteRow(page, rowIndex);
   return page;
 };
