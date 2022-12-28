@@ -11,7 +11,7 @@
 
 <style>
   .horizontal {
-    @apply left-0;
+    @apply left-1/2 -translate-x-1/2;
   }
 
   .vertical {

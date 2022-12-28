@@ -10,7 +10,7 @@ import {
 
 export const PageEditorStore = writable(defaultPageContent);
 
-export function addRow(rowIndex=-1) {
+export function addRow(rowIndex: number) {
   PageEditorStore.update((page) => EditorAddRow(page, rowIndex));
 };
 

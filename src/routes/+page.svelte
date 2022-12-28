@@ -44,8 +44,6 @@
         <ToolbarButton action={()=>deleteRow(rowIndex)} icon={faTrash}/>
       </svelte:fragment>
     </Toolbar>
+    <AddRowButton rowIndex={rowIndex + 1}/>
   {/each}
-  <div class="flex justify-center">
-    <AddRowButton/>
-  </div>
 </main>
