@@ -25,3 +25,15 @@ export function addColumn(rowIndex: number) {
 export function deleteColumn(rowIndex: number, columnIndex: number) {
   PageEditorStore.update((page) => EditorDeleteColumn(page, rowIndex, columnIndex));
 };
+
+export function setPage(page: any) {
+  PageEditorStore.set(page);
+}
+
+export function setRow(rowId: string, row: any) {
+  PageEditorStore.update((page) => {
+    const rowIndex = page.findIndex(row => row.id === rowId);
+    page[rowIndex].content = row;
+    return page;
+  });
+}
