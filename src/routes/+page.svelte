@@ -26,7 +26,7 @@
   {#each $PageEditorStore as row, rowIndex}
     <Toolbar type="vertical">
       <div slot="content" class="flex flex-row justify-between">
-        {#each row as { content }, columnIndex}
+        {#each row.content as { content }, columnIndex}
           <Toolbar>
             <div slot="content" class="px-8 py-2 grow border border-black">
               {content}
