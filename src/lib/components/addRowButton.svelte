@@ -7,9 +7,11 @@
   export let rowIndex: number;
 </script>
 
-<div class="flex justify-center relative">
-  <button on:click={()=>addRow(rowIndex)} 
-   class="absolute flex justify-center p w-8 bg-slate-400 rounded transform -translate-y-1/2 z-10">
-    <Fa class="text-lg text-white" icon={faPlus}/>
-  </button>
+<div class="relative flex justify-center items-center z-10">
+  <div class="absolute w-full flex justify-center items-center opacity-0 hover:opacity-100">
+    <button on:click={()=>addRow(rowIndex)} 
+      class="flex justify-center p w-8 bg-slate-400 rounded">
+       <Fa class="text-lg text-white" icon={faPlus}/>
+     </button>
+  </div>
 </div>

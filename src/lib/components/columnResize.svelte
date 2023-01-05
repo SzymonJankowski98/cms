@@ -7,10 +7,10 @@
   export let columnIndex: number;
 
   let resizing = false;
-	let start = null;
-  let startWidth = null;
+	let start: any;
+  let startWidth: any;
 	
-	function startResize(e) {
+	function startResize(e: any) {
 		resizing = true;
 		start = e.pageX;
     startWidth = $PageEditorStore[rowIndex].content[columnIndex].width;
@@ -21,7 +21,7 @@
 		start = null;
 	}
 	
-	function resize(e) {
+	function resize(e: any) {
 		if (!resizing) return;
 
     const newWidth = Math.round(startWidth + (((e.pageX - start) / window.innerWidth) * 100));
