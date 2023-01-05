@@ -5,7 +5,8 @@ import {
   addRow as EditorAddRow,
   deleteRow as EditorDeleteRow,
   addColumn as EditorAddColumn,
-  deleteColumn as EditorDeleteColumn
+  deleteColumn as EditorDeleteColumn,
+  dragResizeColumn as EditordragResizeColumn
 } from "./pageEditor";
 
 export const PageEditorStore = writable(defaultPageContent);
@@ -26,14 +27,19 @@ export function deleteColumn(rowIndex: number, columnIndex: number) {
   PageEditorStore.update((page) => EditorDeleteColumn(page, rowIndex, columnIndex));
 };
 
+export function dragResizeColumn(rowIndex: number, columnIndex: number, width: number) {
+  PageEditorStore.update((page) => EditordragResizeColumn(page, rowIndex, columnIndex, width));
+};
+
 export function setPage(page: any) {
   PageEditorStore.set(page);
-}
+};
 
+// TODO - fix colum widths when column is moved between rows
 export function setRow(rowId: string, row: any) {
   PageEditorStore.update((page) => {
     const rowIndex = page.findIndex(row => row.id === rowId);
     page[rowIndex].content = row;
     return page;
   });
-}
+};

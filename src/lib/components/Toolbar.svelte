@@ -2,7 +2,7 @@
   export let type = "horizontal";
 </script>
 
-<div class="group relative [&>.toolbar]:hover:flex grow">
+<div class="relative [&>.toolbar]:hover:flex grow">
   <slot name="content"/>
   <div class="hidden toolbar absolute {type} top-0 justify-center items-center bg-slate-400">
     <slot name="buttons"/>
