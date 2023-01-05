@@ -3,7 +3,8 @@
     faSquarePlus,
     faPenToSquare,
     faTrash,
-    faGripVertical
+    faGripVertical,
+    faSave
   } from '@fortawesome/free-solid-svg-icons'
   import { flip } from 'svelte/animate';
   import { dndzone } from 'svelte-dnd-action';
@@ -16,7 +17,8 @@
     addColumn, 
     deleteColumn, 
     setPage,
-    setRow
+    setRow,
+    savePage
   } from "$lib/pageEditorStore";
   import AddRowButton from '$lib/components/addRowButton.svelte';
 
@@ -52,6 +54,7 @@
           <ToolbarButton action={()=>addColumn(rowIndex)} icon={faSquarePlus}/>
           <ToolbarButton action={()=>{}} icon={faGripVertical}/>
           <ToolbarButton action={()=>deleteRow(rowIndex)} icon={faTrash}/>
+          <ToolbarButton action={()=>savePage()} icon={faSave}/>
         </svelte:fragment>
       </Toolbar>
       <AddRowButton rowIndex={rowIndex + 1}/>

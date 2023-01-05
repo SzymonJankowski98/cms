@@ -3,9 +3,10 @@ import { Schema } from "mongoose";
 export interface IPage{
     _id: string;
     name: string;
+    pageContent: any;
 };
   
 export const pageSchema = new Schema<IPage>({
-    _id: {type: String, required: true},
-    name: { type: String, required: false}
+    name: { type: String, required: false},
+    pageContent: {type: Object, required: true}
 });
