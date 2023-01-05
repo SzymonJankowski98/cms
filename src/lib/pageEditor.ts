@@ -1,6 +1,10 @@
 export const maxAmountOfColumns = 10;
 export const minColumWidth = 100 / maxAmountOfColumns;
 
+export const EMPTY = "empty";
+export const TEXT = "text";
+export const BLOCK_TYPES = [EMPTY, TEXT];
+
 export const defaultPageContent = [
   defaultRow(),
   defaultRow(),
@@ -18,7 +22,8 @@ export function defaultColumn(width: number) {
   return { 
     id: _uuid(),
     content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum expedita quibusdam odit a itaque sunt consequatur, ipsum, placeat quas consequuntur dolore perspiciatis veniam magni amet possimus officia? Similique, cupiditate dicta.",
-    width: width
+    width: width,
+    type: EMPTY
   };
 }
 

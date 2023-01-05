@@ -20,6 +20,8 @@
   } from "$lib/pageEditorStore";
   import AddRowButton from '$lib/components/addRowButton.svelte';
   import ColumnResize from '$lib/components/columnResize.svelte';
+  import EditColumnModal from '$lib/components/editColumnModal.svelte';
+  import { showModal } from '$lib/editColumnModalStore';
 
   let flipDurationMs = 300;
   let rowDragDisabled = true;
@@ -65,7 +67,7 @@
                   {content}
                 </div>
                 <svelte:fragment slot="buttons">
-                  <ToolbarButton icon={faPenToSquare}/>
+                  <ToolbarButton action={()=>showModal(rowIndex, columnIndex)} icon={faPenToSquare}/>
                   <ToolbarButton action={()=>deleteColumn(rowIndex, columnIndex)} icon={faTrash}/>
                 </svelte:fragment>
               </Toolbar>
@@ -84,4 +86,5 @@
       <AddRowButton rowIndex={rowIndex + 1}/>
     </div>
   {/each}
+  <EditColumnModal/>
 </main>
