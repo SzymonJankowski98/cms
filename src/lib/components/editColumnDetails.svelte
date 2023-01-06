@@ -3,6 +3,7 @@
   import { EMPTY, TEXT } from '$lib/pageEditor';
   import { updateColumn } from "$lib/pageEditorStore";
   import { PageEditorStore } from "$lib/pageEditorStore";
+  import QuillEditor from './quillEditor.svelte';
 
   function currentBlock() {
     return $PageEditorStore[$EditColumnModalStore.currentRow].content[$EditColumnModalStore.currentColumn];
@@ -28,14 +29,11 @@
       <input type="color" name="backgroundColor" value={currentBlock().backgroundColor}/>
     </div>
   {:else if $EditColumnModalStore.currentType === TEXT}
-    <div class="flex gap-2">
+    <div class="flex gap-2 mb-2">
       <label class="font-medium" for="backgroundColor">Background color:</label>
       <input type="color" name="backgroundColor" value={currentBlock().backgroundColor}/>
     </div>
-    <div class="flex gap-2">
-      <label class="font-medium" for="content">Content:</label>
-      <input type="textarea" name="content" value={currentBlock().content}/>
-    </div>
+    <QuillEditor content={currentBlock().content}/>
   {/if}
   <div class="flex justify-between mt-4">
     <button class="btn btn-sm" on:click={showTypePicker}>back</button>

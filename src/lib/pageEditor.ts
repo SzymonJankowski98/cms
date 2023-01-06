@@ -32,7 +32,7 @@ export function defaultRow() {
     id: _uuid(),
     content: [defaultColumn(50), defaultColumn(50, TEXT_BOCK_ATTRIBUTES)]
   };
-}
+};
 
 export function defaultColumn(width: number, attributes=EMPTY_BOCK_ATTRIBUTES) {
   return { 
@@ -40,7 +40,7 @@ export function defaultColumn(width: number, attributes=EMPTY_BOCK_ATTRIBUTES) {
     width: width,
     ...attributes
   };
-}
+};
 
 export function addRow(page: any, rowIndex: number ) {
   page.splice(rowIndex, 0, defaultRow());
@@ -70,7 +70,7 @@ export function changeColumnType(page: any, rowIndex: number, columnIndex: numbe
   page[rowIndex].content[columnIndex] =
     { ...DEFAULT_ATTRIBUTES_FOR_TYPE[type], ...page[rowIndex].content[columnIndex] };
   return page;
-}
+};
 
 export function deleteColumn(page: any, rowIndex: number, columnIndex: number) {
   page = resizeColumn(page, rowIndex, columnIndex, 0);

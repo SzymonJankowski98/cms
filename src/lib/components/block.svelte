@@ -8,7 +8,7 @@
 {#if attributes.type == EMPTY}
   <div class="grow" style="background-color: {attributes.backgroundColor}"></div>
 {:else if attributes.type == TEXT}
-  <div class="grow" style="background-color: {attributes.backgroundColor}">
-    {attributes.content}
+  <div class="grow ql-editor" style="background-color: {attributes.backgroundColor}">
+    {@html attributes.content}
   </div>
 {/if}
