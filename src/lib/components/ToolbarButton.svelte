@@ -2,9 +2,10 @@
   import Fa from 'svelte-fa';
 
   export let icon: any;
-  export let action: any;
+  export let action = ()=>{};
+  export let mousedownAction = ()=>{};
 </script>
 
-<button on:click={action} class="p-1 justify-center items-center">
+<button on:click={action} on:mousedown={mousedownAction} class="p-1 justify-center items-center">
   <Fa class="text-lg text-white" icon={icon}/>
 </button>
