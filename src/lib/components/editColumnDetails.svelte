@@ -28,17 +28,17 @@
       <input type="color" name="backgroundColor" value={currentBlock().backgroundColor}/>
     </div>
   {:else if $EditColumnModalStore.currentType === TEXT}
-    <div>
-      <label for="backgroundColor">Background color</label>
+    <div class="flex gap-2">
+      <label class="font-medium" for="backgroundColor">Background color:</label>
       <input type="color" name="backgroundColor" value={currentBlock().backgroundColor}/>
     </div>
-    <div>
-      <label for="content">Content</label>
+    <div class="flex gap-2">
+      <label class="font-medium" for="content">Content:</label>
       <input type="textarea" name="content" value={currentBlock().content}/>
     </div>
   {/if}
-  <div class="flex justify-between mt-2">
-    <button on:click={showTypePicker}>back</button>
-    <button type="submit">Save</button>
+  <div class="flex justify-between mt-4">
+    <button class="btn btn-sm" on:click={showTypePicker}>back</button>
+    <button class="btn btn-sm btn-primary" type="submit">Save</button>
   </div>
 </form>
