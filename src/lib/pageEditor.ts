@@ -5,6 +5,22 @@ export const EMPTY = "empty";
 export const TEXT = "text";
 export const BLOCK_TYPES = [EMPTY, TEXT];
 
+export const EMPTY_BOCK_ATTRIBUTES = {
+  type: EMPTY,
+  backgroundColor: "#ffffff"
+}
+
+export const TEXT_BOCK_ATTRIBUTES = {
+  type: TEXT,
+  content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum expedita quibusdam odit a itaque sunt consequatur, ipsum, placeat quas consequuntur dolore perspiciatis veniam magni amet possimus officia? Similique, cupiditate dicta.",
+  backgroundColor: "#ffffff"
+}
+
+export const DEFAULT_ATTRIBUTES_FOR_TYPE = {
+  [EMPTY]: EMPTY_BOCK_ATTRIBUTES,
+  [TEXT]: TEXT_BOCK_ATTRIBUTES
+}
+
 export const defaultPageContent = [
   defaultRow(),
   defaultRow(),
@@ -14,16 +30,15 @@ export const defaultPageContent = [
 export function defaultRow() {
   return { 
     id: _uuid(),
-    content: [defaultColumn(50), defaultColumn(50)]
+    content: [defaultColumn(50), defaultColumn(50, TEXT_BOCK_ATTRIBUTES)]
   };
 }
 
-export function defaultColumn(width: number) {
+export function defaultColumn(width: number, attributes=EMPTY_BOCK_ATTRIBUTES) {
   return { 
     id: _uuid(),
-    content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum expedita quibusdam odit a itaque sunt consequatur, ipsum, placeat quas consequuntur dolore perspiciatis veniam magni amet possimus officia? Similique, cupiditate dicta.",
     width: width,
-    type: EMPTY
+    ...attributes
   };
 }
 
@@ -45,6 +60,17 @@ export function addColumn(page: any, rowIndex: number) {
   const newColumnWidth = Math.round(100 / (newColumIndex + 1));
   return resizeColumn(page, rowIndex, newColumIndex, newColumnWidth);
 };
+
+export function updateColumn(page: any, rowIndex: number, columnIndex: number, params: Object) {
+  page[rowIndex].content[columnIndex] = {...page[rowIndex].content[columnIndex], ...params}
+  return page;
+};
+
+export function changeColumnType(page: any, rowIndex: number, columnIndex: number, type: string) {
+  page[rowIndex].content[columnIndex] =
+    { ...DEFAULT_ATTRIBUTES_FOR_TYPE[type], ...page[rowIndex].content[columnIndex] };
+  return page;
+}
 
 export function deleteColumn(page: any, rowIndex: number, columnIndex: number) {
   page = resizeColumn(page, rowIndex, columnIndex, 0);

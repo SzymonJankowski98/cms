@@ -22,6 +22,7 @@
   import ColumnResize from '$lib/components/columnResize.svelte';
   import EditColumnModal from '$lib/components/editColumnModal.svelte';
   import { showModal } from '$lib/editColumnModalStore';
+  import Block from '$lib/components/block.svelte';
 
   let flipDurationMs = 300;
   let rowDragDisabled = true;
@@ -59,15 +60,15 @@
         <div slot="content" class="flex flex-row justify-between"
          use:dndzone={{items:row.content, dragDisabled:columnDragDisabled, flipDurationMs}}
          on:consider={(e) => setRow(row.id, e.detail.items)} on:finalize={(e) => setRow(row.id, e.detail.items)}>
-          {#each row.content as { id, content, width }, columnIndex (id)}
+          {#each row.content as block, columnIndex (block.id)}
             <!-- <div class="flex grow" animate:flip="{{duration: flipDurationMs}}" style="width: {width}%;"></div> -->
-            <div class="flex grow" style="width: {width}%;">
+            <div class="flex grow min-h-[50px]" style="width: {block.width}%;">
               <Toolbar>
-                <div on:mousedown={startColumnDrag} slot="content" class="px-8 py-2 grow">
-                  {content}
+                <div on:mousedown={startColumnDrag} slot="content" class="h-full flex grow">
+                  <Block attributes={block}/>
                 </div>
                 <svelte:fragment slot="buttons">
-                  <ToolbarButton action={()=>showModal(rowIndex, columnIndex)} icon={faPenToSquare}/>
+                  <ToolbarButton action={()=>showModal(rowIndex, columnIndex, $PageEditorStore[rowIndex].content[columnIndex].type)} icon={faPenToSquare}/>
                   <ToolbarButton action={()=>deleteColumn(rowIndex, columnIndex)} icon={faTrash}/>
                 </svelte:fragment>
               </Toolbar>

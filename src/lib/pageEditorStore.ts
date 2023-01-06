@@ -5,8 +5,10 @@ import {
   addRow as EditorAddRow,
   deleteRow as EditorDeleteRow,
   addColumn as EditorAddColumn,
+  updateColumn as EditorUpdateColumn,
+  changeColumnType as EditorChangeColumnType,
   deleteColumn as EditorDeleteColumn,
-  dragResizeColumn as EditordragResizeColumn
+  dragResizeColumn as EditorDragResizeColumn
 } from "./pageEditor";
 
 export const PageEditorStore = writable(defaultPageContent);
@@ -23,12 +25,20 @@ export function addColumn(rowIndex: number) {
   PageEditorStore.update((page) => EditorAddColumn(page, rowIndex));
 };
 
+export function updateColumn(rowIndex: number, columnIndex: number, params: {}) {
+  PageEditorStore.update((page) => EditorUpdateColumn(page, rowIndex, columnIndex, params));
+}
+
+export function changeColumnType(rowIndex: number, columnIndex: number, type: string) {
+  PageEditorStore.update((page) => EditorChangeColumnType(page, rowIndex, columnIndex, type));
+}
+
 export function deleteColumn(rowIndex: number, columnIndex: number) {
   PageEditorStore.update((page) => EditorDeleteColumn(page, rowIndex, columnIndex));
 };
 
 export function dragResizeColumn(rowIndex: number, columnIndex: number, width: number) {
-  PageEditorStore.update((page) => EditordragResizeColumn(page, rowIndex, columnIndex, width));
+  PageEditorStore.update((page) => EditorDragResizeColumn(page, rowIndex, columnIndex, width));
 };
 
 export function setPage(page: any) {
