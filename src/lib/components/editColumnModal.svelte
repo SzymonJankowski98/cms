@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { faNoteSticky, faSquare } from '@fortawesome/free-solid-svg-icons';
+	import { faBars, faNoteSticky, faSquare } from '@fortawesome/free-solid-svg-icons';
 	import Modal from '$lib/components/modal.svelte';
 
 	import { EditColumnModalStore, EDIT_DETAILS, hideModal, TYPE_PICKER } from '$lib/editColumnModalStore';
 	import ColumnTypeCard from '$lib/components/columnTypeCard.svelte';
-	import { EMPTY, TEXT } from '$lib/pageEditor';
-    import EditColumnDetails from './editColumnDetails.svelte';
+	import { EMPTY, TEXT, NAV } from '$lib/pageEditor';
+	import EditColumnDetails from './editColumnDetails.svelte';
 </script>
 
 {#if $EditColumnModalStore.visible}
@@ -14,6 +14,7 @@
 			<div class="grid grid-cols-3 gap-8 m-4">
 				<ColumnTypeCard type={EMPTY} icon={faSquare}/>
 				<ColumnTypeCard type={TEXT} icon={faNoteSticky}/>
+				<ColumnTypeCard type={NAV} icon={faBars}/>
 			</div>
 		{:else if $EditColumnModalStore.mode === EDIT_DETAILS}
 			<EditColumnDetails/>
