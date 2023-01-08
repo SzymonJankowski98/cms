@@ -10,7 +10,7 @@
 </script>
 
 <div class="fixed w-full h-screen bg-black/70 top-0 z-20">
-  <div class="custom-modal fixed left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-white rounded-md py-2 px-4">
+  <div class="custom-modal fixed left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-white rounded-md py-2 px-4 overflow-y-auto max-h-[40rem]">
     <header class="flex justify-between items-start">
       <h2 class="text-2xl font-bold">{title}</h2>
       <button on:click={close}>
