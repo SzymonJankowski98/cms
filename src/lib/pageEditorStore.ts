@@ -11,6 +11,8 @@ import {
   dragResizeColumn as EditorDragResizeColumn
 } from "./pageEditor";
 
+import {doPost} from "./database/crudFunctions";
+
 export const PageEditorStore = writable(defaultPageContent);
 
 export function addRow(rowIndex: number) {
@@ -52,4 +54,8 @@ export function setRow(rowId: string, row: any) {
     page[rowIndex].content = row;
     return page;
   });
+};
+
+export function savePage(){
+    doPost(defaultPageContent, "pokiCoKokos");
 };
