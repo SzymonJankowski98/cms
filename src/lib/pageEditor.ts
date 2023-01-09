@@ -4,7 +4,8 @@ export const minColumWidth = 100 / maxAmountOfColumns;
 export const EMPTY = "empty";
 export const TEXT = "text";
 export const NAV = "nav";
-export const BLOCK_TYPES = [EMPTY, TEXT, NAV];
+export const CARDS = "cards";
+export const BLOCK_TYPES = [EMPTY, TEXT, NAV, CARDS];
 
 export const EMPTY_BLOCK_ATTRIBUTES = {
   type: EMPTY,
@@ -30,10 +31,40 @@ export const NAV_BLOCK_ATTRIBUTES = {
   ]
 }
 
+export const CARDS_BLOCK_ATTRIBUTES = {
+  type: CARDS,
+  backgroundColor: "#ffffff",
+  cardColor: "#111827",
+  fontColor: "#000000",
+  secondaryFontColor: "#616161",
+  buttonColor: "#1E88E5",
+  content: [{
+    title: "Title",
+    titleUrl: "https://example.com",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit."
+  },
+  {
+    title: "Title",
+    titleUrl: "https://example.com",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+  },
+  {
+    title: "Title",
+    titleUrl: "https://example.com",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+  },
+  {
+    title: "Title",
+    titleUrl: "https://example.com",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+  }]
+}
+
 export const DEFAULT_ATTRIBUTES_FOR_TYPE = {
   [EMPTY]: EMPTY_BLOCK_ATTRIBUTES,
   [TEXT]: TEXT_BLOCK_ATTRIBUTES,
-  [NAV]: NAV_BLOCK_ATTRIBUTES
+  [NAV]: NAV_BLOCK_ATTRIBUTES,
+  [CARDS]: CARDS_BLOCK_ATTRIBUTES
 }
 
 export const defaultPageContent = [
