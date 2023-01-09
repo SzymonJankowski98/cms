@@ -1,11 +1,8 @@
 
 <script lang="ts">
-	import { connect } from 'mongoose';
-
+   
     /** @type {import('./$types').PageData} */
-    export let data : any;
-
-    let username = "placeholder-username";
+    export let data : any;    
 
 </script>
 
@@ -74,7 +71,10 @@
 <div>
     <nav>
         <div class="nav-panel">This is admin panel</div>
-        <div class="nav-user">Signed in as {username}</div>
+        <div class="nav-user">Signed in as {data.username}</div>
+        <form action="/signin">   
+            <input type="submit" value="log out">
+         </form>
     </nav>
 
     {#each data.userPages as page}

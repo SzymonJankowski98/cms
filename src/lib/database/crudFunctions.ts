@@ -1,10 +1,11 @@
-import mongoose, {Schema, model, connect, Model} from "mongoose";
+import mongoose, {model, connect} from "mongoose";
+import {type IUser, type IPage, userSchema, pageSchema} from "../../lib/database/schema";
 
-import type {IPage} from "../../lib/database/schema";
-import { pageSchema } from "../../lib/database/schema";
 const connectionString = "mongodb://127.0.0.1:27017/cmsDatastore";
 
 const page = model<IPage>("Page", pageSchema);
+
+const user = model<IUser>("User", userSchema);
 
 
 export async function doPost (schema: any, authentication: string) {
@@ -31,11 +32,22 @@ export async function insertIntoDb(pageContent: any, name: string){
     newPage.save();
 }
 
-export async function findInDb(){
+export async function findPageInDb(){
     await connect(connectionString);
     mongoose.set("strictQuery", false);
 
     let playload = await page.find();
+
+    console.log("from db\n" + playload);
+
+    return playload;
+}
+
+export async function findUserInDb(username: string) {
+    await connect(connectionString);
+    mongoose.set("strictQuery", false);
+
+    let playload = await user.find({username: username});
 
     console.log("from db\n" + playload);
 
