@@ -8,12 +8,15 @@ const page = model<IPage>("Page", pageSchema);
 const user = model<IUser>("User", userSchema);
 
 
-export async function doPost (schema: any, authentication: string) {
+export async function doPostToSavePage (schema: any, pageName: string) {
     const res = await fetch("/api/savePage", {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
             schema: schema,
-            authentication: authentication
+            pageName: pageName
         })
     });
     
@@ -21,22 +24,23 @@ export async function doPost (schema: any, authentication: string) {
     console.log(JSON.stringify(json));
 }
 
-export async function insertIntoDb(pageContent: any, name: string){
+export async function insertIntoDb(pageContent: any, name: string, owner: string){
     await connect(connectionString);
 
     let newPage = new page({
         pageContent: pageContent,
-        name: name
+        name: name,
+        owner: owner
     });
 
     newPage.save();
 }
 
-export async function findPageInDb(){
+export async function findPageInDb(owner: string | undefined){
     await connect(connectionString);
     mongoose.set("strictQuery", false);
 
-    let playload = await page.find();
+    let playload = await page.find({owner: owner});
 
     console.log("from db\n" + playload);
 

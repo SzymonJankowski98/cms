@@ -25,6 +25,11 @@
   import EditColumnModal from '$lib/components/editColumnModal.svelte';
   import { showModal } from '$lib/editColumnModalStore';
   import Block from '$lib/components/block.svelte';
+  
+  /** @type {import('./$types').PageData} */
+  
+  export let data : any;    
+
 
   let flipDurationMs = 300;
   let rowDragDisabled = true;
@@ -51,6 +56,12 @@
   <title>Edit Page</title>
   <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 </head>
+
+<style>
+  .save-button{
+    background-color: red;
+  }
+</style>
 
 <svelte:window on:mouseup={stopDrag}/>
 
@@ -85,11 +96,11 @@
           <ToolbarButton action={()=>addColumn(rowIndex)} icon={faSquarePlus}/>
           <ToolbarButton mousedownAction={startRowDrag} icon={faGripVertical}/>
           <ToolbarButton action={()=>deleteRow(rowIndex)} icon={faTrash}/>
-          <ToolbarButton action={()=>savePage()} icon={faSave}/>
         </svelte:fragment>
       </Toolbar>
       <AddRowButton rowIndex={rowIndex + 1}/>
     </div>
   {/each}
   <EditColumnModal/>
+  <button class="save-button" on:click={()=>savePage("placeholderName")}>SAVE</button>
 </main>

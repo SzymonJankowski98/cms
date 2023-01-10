@@ -3,7 +3,9 @@ import { Schema } from "mongoose";
 export interface IPage{
     _id: string;
     name: string;
+    owner: string;
     pageContent: any;
+    
 };
   
 export interface IUser{
@@ -13,7 +15,8 @@ export interface IUser{
 };
 
 export const pageSchema = new Schema<IPage>({
-    name: { type: String, required: false},
+    name: { type: String, required: true},
+    owner: {type: String, required: true},
     pageContent: {type: Object, required: true}
 });
 

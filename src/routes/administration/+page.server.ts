@@ -15,7 +15,9 @@ export async function load(event: any) {
      throw redirect(302, "/signin");
   }
     
-  let usersPages = await findPageInDb();
+  const username = tokenNameMapPtr.get(authenticationToken);
+
+  let usersPages = await findPageInDb(username);
 
   let names: Array<string> = [];
 
