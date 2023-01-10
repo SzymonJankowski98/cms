@@ -1,9 +1,13 @@
 
 <script lang="ts">
-   
+    import { redirect } from "@sveltejs/kit";
+
     /** @type {import('./$types').PageData} */
     export let data : any;    
 
+    function redirectTo(path: string){
+        throw redirect(302, path);
+    }
 </script>
 
 <head>
@@ -31,6 +35,7 @@
     .nav-user{
         width: 50%;
         text-align: right;
+        margin-right: 10px;;
     }
 
     .page{
@@ -58,7 +63,7 @@
         width: 40%;
         margin: 10px;
     }
-    .buttons > button{
+    form > input{
         color: black;
         background-color: whitesmoke;
         float: left;
@@ -74,15 +79,19 @@
         <div class="nav-user">Signed in as {data.username}</div>
         <form action="/signin">   
             <input type="submit" value="log out">
-         </form>
+        </form>
     </nav>
 
     {#each data.userPages as page}
         <div class="page">
             <h1 class="page-name">{page}</h1>
             <div class="buttons">
-                <button> open in edit mode</button>
-                <button> open in release mode</button>
+                <form action="/page/{page}">   
+                    <input type="submit" value="Edit Page">
+                </form>
+                <form action="/page/{page}?release=true">   
+                    <input type="submit" value="Release Mode">
+                </form>
             </div>
         </div>
 
