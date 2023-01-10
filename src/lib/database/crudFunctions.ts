@@ -36,7 +36,7 @@ export async function insertIntoDb(pageContent: any, name: string, owner: string
     newPage.save();
 }
 
-export async function findPageInDb(owner: string | undefined){
+export async function findPageByOwnerInDb(owner: string | undefined){
     await connect(connectionString);
     mongoose.set("strictQuery", false);
 
@@ -56,4 +56,15 @@ export async function findUserInDb(username: string) {
     console.log("from db\n" + playload);
 
     return playload;
+}
+
+export async function findPageByNameInDb(pageName: string) {
+    await connect(connectionString);
+    mongoose.set("strictQuery", false);
+
+    let playload = await user.findOne({name: pageName});
+
+    console.log("from db\n" + playload);
+
+    return playload;    
 }

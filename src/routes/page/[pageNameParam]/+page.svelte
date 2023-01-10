@@ -3,8 +3,7 @@
     faSquarePlus,
     faPenToSquare,
     faTrash,
-    faGripVertical,
-    faSave
+    faGripVertical
   } from '@fortawesome/free-solid-svg-icons'
   import { flip } from 'svelte/animate';
   import { dndzone } from 'svelte-dnd-action';
@@ -12,7 +11,6 @@
   import Toolbar from "$lib/components/Toolbar.svelte";
   import ToolbarButton from '$lib/components/ToolbarButton.svelte';
   import { 
-    PageEditorStore, 
     deleteRow, 
     addColumn, 
     deleteColumn, 
@@ -27,9 +25,12 @@
   import Block from '$lib/components/block.svelte';
   
   /** @type {import('./$types').PageData} */
-  
   export let data : any;    
 
+  let pageModel = data.schema;
+
+  console.log(pageModel);
+  
 
   let flipDurationMs = 300;
   let rowDragDisabled = true;
@@ -66,9 +67,9 @@
 <svelte:window on:mouseup={stopDrag}/>
 
 <main class="flex flex-col"
- use:dndzone={{items:$PageEditorStore, dragDisabled:rowDragDisabled, flipDurationMs, type:'rows'}}
+ use:dndzone={{items:pageModel, dragDisabled:rowDragDisabled, flipDurationMs, type:'rows'}}
  on:consider={(e) => setPage(e.detail.items)} on:finalize={(e) => setPage(e.detail.items)}>
-  {#each $PageEditorStore as row, rowIndex (row.id)}
+  {#each pageModel as row, rowIndex (row.id)}
     <div animate:flip="{{duration: flipDurationMs}}">
       <Toolbar type="vertical">
         <div slot="content" class="flex flex-row justify-between"
@@ -82,7 +83,7 @@
                   <Block attributes={block}/>
                 </div>
                 <svelte:fragment slot="buttons">
-                  <ToolbarButton action={()=>showModal(rowIndex, columnIndex, $PageEditorStore[rowIndex].content[columnIndex].type)} icon={faPenToSquare}/>
+                  <ToolbarButton action={()=>showModal(rowIndex, columnIndex, pageModel[rowIndex].content[columnIndex].type)} icon={faPenToSquare}/>
                   <ToolbarButton action={()=>deleteColumn(rowIndex, columnIndex)} icon={faTrash}/>
                 </svelte:fragment>
               </Toolbar>
@@ -102,5 +103,7 @@
     </div>
   {/each}
   <EditColumnModal/>
+  {#if data.editMode}
   <button class="save-button" on:click={()=>savePage("placeholderName")}>SAVE</button>
+  {/if}
 </main>

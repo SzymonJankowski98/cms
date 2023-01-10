@@ -1,5 +1,5 @@
 import { tokenNameMap } from "$lib/api/authentication";
-import { findPageInDb } from "../../lib/database/crudFunctions";
+import { findPageByOwnerInDb } from "../../lib/database/crudFunctions";
 import { redirect } from "@sveltejs/kit";
 
 /** @type {import('./$types').PageServerLoad} */
@@ -17,7 +17,7 @@ export async function load(event: any) {
     
   const username = tokenNameMapPtr.get(authenticationToken);
 
-  let usersPages = await findPageInDb(username);
+  let usersPages = await findPageByOwnerInDb(username);
 
   let names: Array<string> = [];
 
