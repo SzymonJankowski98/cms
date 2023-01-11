@@ -5,6 +5,8 @@ import {PageEditorStore} from "$lib/pageEditorStore";
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event:any) {
 
+    let release : boolean = event.url.searchParams.get('release') === "true";
+
     let tokenNameMapPtr = new Map;
 
     tokenNameMap.subscribe(val => tokenNameMapPtr = val);
@@ -16,6 +18,8 @@ export async function load(event:any) {
     console.log(event.params.pageNameParam);
 
     let model = await findPageByNameInDb(event.params.pageNameParam);
+
+    model = model.pageContent;
 
     console.log("model przed");
     
@@ -30,7 +34,7 @@ export async function load(event:any) {
     console.log(model);
 
     return {
-        editMode: name !== undefined,
+        editMode: !release && name !== undefined,
         schema: model
     }
 }

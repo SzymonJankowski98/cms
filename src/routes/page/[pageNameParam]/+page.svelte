@@ -11,6 +11,7 @@
   import Toolbar from "$lib/components/Toolbar.svelte";
   import ToolbarButton from '$lib/components/ToolbarButton.svelte';
   import { 
+    PageEditorStore, 
     deleteRow, 
     addColumn, 
     deleteColumn, 
@@ -29,7 +30,7 @@
 
   let pageModel = data.schema;
 
-  console.log(pageModel);
+  PageEditorStore.set(pageModel);
   
 
   let flipDurationMs = 300;
@@ -67,9 +68,9 @@
 <svelte:window on:mouseup={stopDrag}/>
 
 <main class="flex flex-col"
- use:dndzone={{items:pageModel, dragDisabled:rowDragDisabled, flipDurationMs, type:'rows'}}
+ use:dndzone={{items:$PageEditorStore, dragDisabled:rowDragDisabled, flipDurationMs, type:'rows'}}
  on:consider={(e) => setPage(e.detail.items)} on:finalize={(e) => setPage(e.detail.items)}>
-  {#each pageModel as row, rowIndex (row.id)}
+  {#each $PageEditorStore as row, rowIndex (row.id)}
     <div animate:flip="{{duration: flipDurationMs}}">
       <Toolbar type="vertical">
         <div slot="content" class="flex flex-row justify-between"
@@ -83,7 +84,7 @@
                   <Block attributes={block}/>
                 </div>
                 <svelte:fragment slot="buttons">
-                  <ToolbarButton action={()=>showModal(rowIndex, columnIndex, pageModel[rowIndex].content[columnIndex].type)} icon={faPenToSquare}/>
+                  <ToolbarButton action={()=>showModal(rowIndex, columnIndex, $PageEditorStore[rowIndex].content[columnIndex].type)} icon={faPenToSquare}/>
                   <ToolbarButton action={()=>deleteColumn(rowIndex, columnIndex)} icon={faTrash}/>
                 </svelte:fragment>
               </Toolbar>

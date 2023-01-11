@@ -24,16 +24,38 @@ export async function doPostToSavePage (schema: any, pageName: string) {
     console.log(JSON.stringify(json));
 }
 
-export async function insertIntoDb(pageContent: any, name: string, owner: string){
+export async function updateOrInsertIfNotInDb(pageContent: any, name: string, owner: string){
     await connect(connectionString);
 
-    let newPage = new page({
-        pageContent: pageContent,
-        name: name,
-        owner: owner
-    });
+    let pageInPreviousState = await page.findOne({name: name, owner: owner});
 
-    newPage.save();
+    console.log("pageContent in crud");
+    console.log(pageContent);
+    
+    
+
+    if(!pageInPreviousState?.$isEmpty){
+
+        console.log("new page created");
+
+        let pageAfterChanges = new page({
+            pageContent: pageContent,
+            name: name,
+            owner: owner
+        });
+
+        pageAfterChanges.save();
+    }else{
+
+        console.log("page updated");
+        console.log(pageInPreviousState);
+        
+        pageInPreviousState.pageContent = pageContent;
+
+        pageInPreviousState.save();;
+
+    }
+
 }
 
 export async function findPageByOwnerInDb(owner: string | undefined){
@@ -62,7 +84,18 @@ export async function findPageByNameInDb(pageName: string) {
     await connect(connectionString);
     mongoose.set("strictQuery", false);
 
-    let playload = await user.findOne({name: pageName});
+    let playload = await page.findOne({name: pageName});
+
+    console.log("from db\n" + playload);
+
+    return playload;    
+}
+
+export async function findPageByNameAndOwnerInDb(pageName: string, owner: string) {
+    await connect(connectionString);
+    mongoose.set("strictQuery", false);
+
+    let playload = await user.findOne({name: pageName, owner: owner});
 
     console.log("from db\n" + playload);
 

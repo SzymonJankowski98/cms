@@ -1,13 +1,9 @@
 
 <script lang="ts">
-    import { redirect } from "@sveltejs/kit";
 
     /** @type {import('./$types').PageData} */
     export let data : any;    
 
-    function redirectTo(path: string){
-        throw redirect(302, path);
-    }
 </script>
 
 <head>
@@ -89,7 +85,8 @@
                 <form action="/page/{page}">   
                     <input type="submit" value="Edit Page">
                 </form>
-                <form action="/page/{page}?release=true">   
+                <form action="/page/{page}">
+                    <input type="hidden" name="release" value="true" />    
                     <input type="submit" value="Release Mode">
                 </form>
             </div>

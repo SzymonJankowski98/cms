@@ -1,7 +1,5 @@
 import { tokenNameMap } from "$lib/api/authentication";
-import { insertIntoDb } from "$lib/database/crudFunctions";
-import { defaultPageContent } from "$lib/pageEditor";
-
+import { updateOrInsertIfNotInDb } from "$lib/database/crudFunctions";
 
 export async function POST(event: any) {
     const data = await event.request.json();
@@ -9,8 +7,8 @@ export async function POST(event: any) {
     
     let pageName = data.pageName;
     
-    let body = data.body;
-    
+    let schema = data.schema;   
+
     let tokenNameMapPtr : Map<string,string> = new Map;
   
     tokenNameMap.subscribe(val => tokenNameMapPtr = val);
@@ -25,7 +23,7 @@ export async function POST(event: any) {
   
     let username : string = tokenNameMapPtr.get(token);
   
-    insertIntoDb(defaultPageContent, pageName, username);
+    updateOrInsertIfNotInDb(schema, pageName, username);
   
     return new Response(JSON.stringify({message: "page saved"}), {status: 200});
   }

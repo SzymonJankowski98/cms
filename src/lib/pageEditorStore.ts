@@ -58,5 +58,9 @@ export function setRow(rowId: string, row: any) {
 
 export function savePage(pageName : string){
     
-    doPostToSavePage(defaultPageContent, pageName);
+    let currentPageContent = {};
+    
+    PageEditorStore.subscribe(val => currentPageContent = val);
+
+    doPostToSavePage(currentPageContent, pageName);
 };
