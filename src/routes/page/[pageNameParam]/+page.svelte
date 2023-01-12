@@ -3,8 +3,7 @@
     faSquarePlus,
     faPenToSquare,
     faTrash,
-    faGripVertical,
-    faSave
+    faGripVertical
   } from '@fortawesome/free-solid-svg-icons'
   import { flip } from 'svelte/animate';
   import { dndzone } from 'svelte-dnd-action';
@@ -25,6 +24,14 @@
   import EditColumnModal from '$lib/components/editColumnModal.svelte';
   import { showModal } from '$lib/editColumnModalStore';
   import Block from '$lib/components/block.svelte';
+  
+  /** @type {import('./$types').PageData} */
+  export let data : any;    
+
+  let pageModel = data.schema;
+
+  PageEditorStore.set(pageModel);
+  
 
   let flipDurationMs = 300;
   let rowDragDisabled = true;
@@ -51,6 +58,19 @@
   <title>Edit Page</title>
   <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 </head>
+
+<style>
+  .save-button{
+    background-color: red;
+    color: black;
+  }
+  .goback-button{
+    background-color: green;
+    color: white;
+    justify-content: center;
+    text-align: center;
+  }
+</style>
 
 <svelte:window on:mouseup={stopDrag}/>
 
@@ -85,11 +105,16 @@
           <ToolbarButton action={()=>addColumn(rowIndex)} icon={faSquarePlus}/>
           <ToolbarButton mousedownAction={startRowDrag} icon={faGripVertical}/>
           <ToolbarButton action={()=>deleteRow(rowIndex)} icon={faTrash}/>
-          <ToolbarButton action={()=>savePage()} icon={faSave}/>
         </svelte:fragment>
       </Toolbar>
       <AddRowButton rowIndex={rowIndex + 1}/>
     </div>
   {/each}
   <EditColumnModal/>
+  {#if data.editMode}
+  <button class="save-button" on:click={()=>savePage("placeholderName")}>SAVE</button>
+  <form class="goback-button" action="/administration">
+    <input type="submit" value="Go to administration page">
+  </form>
+  {/if}
 </main>
