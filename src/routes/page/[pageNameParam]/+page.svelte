@@ -74,47 +74,60 @@
 
 <svelte:window on:mouseup={stopDrag}/>
 
-<main class="flex flex-col"
- use:dndzone={{items:$PageEditorStore, dragDisabled:rowDragDisabled, flipDurationMs, type:'rows'}}
- on:consider={(e) => setPage(e.detail.items)} on:finalize={(e) => setPage(e.detail.items)}>
-  {#each $PageEditorStore as row, rowIndex (row.id)}
-    <div animate:flip="{{duration: flipDurationMs}}">
-      <Toolbar type="vertical">
-        <div slot="content" class="flex flex-row justify-between"
-         use:dndzone={{items:row.content, dragDisabled:columnDragDisabled, flipDurationMs}}
-         on:consider={(e) => setRow(row.id, e.detail.items)} on:finalize={(e) => setRow(row.id, e.detail.items)}>
+{#if data.editMode}
+  <main class="flex flex-col"
+  use:dndzone={{items:$PageEditorStore, dragDisabled:rowDragDisabled, flipDurationMs, type:'rows'}}
+  on:consider={(e) => setPage(e.detail.items)} on:finalize={(e) => setPage(e.detail.items)}>
+    {#each $PageEditorStore as row, rowIndex (row.id)}
+      <div animate:flip="{{duration: flipDurationMs}}">
+        <Toolbar type="vertical">
+          <div slot="content" class="flex flex-row justify-between"
+          use:dndzone={{items:row.content, dragDisabled:columnDragDisabled, flipDurationMs}}
+          on:consider={(e) => setRow(row.id, e.detail.items)} on:finalize={(e) => setRow(row.id, e.detail.items)}>
+            {#each row.content as block, columnIndex (block.id)}
+              <!-- <div class="flex grow" animate:flip="{{duration: flipDurationMs}}" style="width: {width}%;"></div> -->
+              <div class="flex grow min-h-[50px]" style="width: {block.width}%;">
+                <Toolbar>
+                  <div on:mousedown={startColumnDrag} slot="content" class="h-full flex grow">
+                    <Block attributes={block}/>
+                  </div>
+                  <svelte:fragment slot="buttons">
+                    <ToolbarButton action={()=>showModal(rowIndex, columnIndex, $PageEditorStore[rowIndex].content[columnIndex].type)} icon={faPenToSquare}/>
+                    <ToolbarButton action={()=>deleteColumn(rowIndex, columnIndex)} icon={faTrash}/>
+                  </svelte:fragment>
+                </Toolbar>
+                {#if row.content.length - 1 > columnIndex}
+                  <ColumnResize rowIndex={rowIndex} columnIndex={columnIndex}/>
+                {/if}
+              </div>
+            {/each}
+          </div>
+          <svelte:fragment slot="buttons">
+            <ToolbarButton action={()=>addColumn(rowIndex)} icon={faSquarePlus}/>
+            <ToolbarButton mousedownAction={startRowDrag} icon={faGripVertical}/>
+            <ToolbarButton action={()=>deleteRow(rowIndex)} icon={faTrash}/>
+          </svelte:fragment>
+        </Toolbar>
+        <AddRowButton rowIndex={rowIndex + 1}/>
+      </div>
+    {/each}
+    <EditColumnModal/>
+    <button class="save-button" on:click={()=>savePage("placeholderName")}>SAVE</button>
+    <form class="goback-button" action="/administration">
+      <input type="submit" value="Go to administration page">
+    </form>
+  </main>
+{:else}
+  <main class="flex flex-col">
+    {#each $PageEditorStore as row, rowIndex (row.id)}
+        <div class="flex flex-row justify-between">
           {#each row.content as block, columnIndex (block.id)}
             <!-- <div class="flex grow" animate:flip="{{duration: flipDurationMs}}" style="width: {width}%;"></div> -->
             <div class="flex grow min-h-[50px]" style="width: {block.width}%;">
-              <Toolbar>
-                <div on:mousedown={startColumnDrag} slot="content" class="h-full flex grow">
                   <Block attributes={block}/>
-                </div>
-                <svelte:fragment slot="buttons">
-                  <ToolbarButton action={()=>showModal(rowIndex, columnIndex, $PageEditorStore[rowIndex].content[columnIndex].type)} icon={faPenToSquare}/>
-                  <ToolbarButton action={()=>deleteColumn(rowIndex, columnIndex)} icon={faTrash}/>
-                </svelte:fragment>
-              </Toolbar>
-              {#if row.content.length - 1 > columnIndex}
-                <ColumnResize rowIndex={rowIndex} columnIndex={columnIndex}/>
-              {/if}
             </div>
           {/each}
         </div>
-        <svelte:fragment slot="buttons">
-          <ToolbarButton action={()=>addColumn(rowIndex)} icon={faSquarePlus}/>
-          <ToolbarButton mousedownAction={startRowDrag} icon={faGripVertical}/>
-          <ToolbarButton action={()=>deleteRow(rowIndex)} icon={faTrash}/>
-        </svelte:fragment>
-      </Toolbar>
-      <AddRowButton rowIndex={rowIndex + 1}/>
-    </div>
-  {/each}
-  <EditColumnModal/>
-  {#if data.editMode}
-  <button class="save-button" on:click={()=>savePage("placeholderName")}>SAVE</button>
-  <form class="goback-button" action="/administration">
-    <input type="submit" value="Go to administration page">
-  </form>
-  {/if}
-</main>
+    {/each}
+  </main>
+{/if}
