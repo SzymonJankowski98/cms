@@ -24,6 +24,28 @@
     hideModal();
   }
 
+  function toBase64(file : any) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  };
+
+  async function savePictureAsBase64(event: any){
+
+    const formData = new FormData(event.target)
+    
+    let file = formData.get("picture");
+
+    let fileInBase64 = await toBase64(file);  
+    
+    img64 = fileInBase64;
+  }
+
+  let img64 : any;
+
   function addContent(e: any) {
     const formData = new FormData(e.target);
 
@@ -143,6 +165,13 @@
           </tbody>
         </table>
       </div>
+      <p>
+        <form on:submit|preventDefault={savePictureAsBase64}>
+          <input type="file" name="picture"/>
+          <input type="submit" value="send" class="btn btn-sm"/>
+        </form>
+        <img src={img64}>
+      <p>
       <form on:submit|preventDefault={addContent}>
         <div class="flex gap-2 mb-2">
           <label class="font-medium" for="title">Title:</label>
