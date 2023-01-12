@@ -62,6 +62,13 @@
 <style>
   .save-button{
     background-color: red;
+    color: black;
+  }
+  .goback-button{
+    background-color: green;
+    color: white;
+    justify-content: center;
+    text-align: center;
   }
 </style>
 
@@ -106,5 +113,8 @@
   <EditColumnModal/>
   {#if data.editMode}
   <button class="save-button" on:click={()=>savePage("placeholderName")}>SAVE</button>
+  <form class="goback-button" action="/administration">
+    <input type="submit" value="Go to administration page">
+  </form>
   {/if}
 </main>

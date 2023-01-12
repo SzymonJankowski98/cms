@@ -78,6 +78,13 @@
         </form>
     </nav>
 
+    <div class="page">
+        <form action="/api/newPage" method="POST">
+            <input type="text" name="name" />    
+            <input type="submit" value="Create New Page">
+        </form>
+    </div>
+
     {#each data.userPages as page}
         <div class="page">
             <h1 class="page-name">{page}</h1>

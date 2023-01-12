@@ -1,5 +1,6 @@
 import mongoose, {model, connect} from "mongoose";
 import {type IUser, type IPage, userSchema, pageSchema} from "../../lib/database/schema";
+import { defaultPageContent } from "$lib/pageEditor";
 
 const connectionString = "mongodb://127.0.0.1:27017/cmsDatastore";
 
@@ -100,4 +101,20 @@ export async function findPageByNameAndOwnerInDb(pageName: string, owner: string
     console.log("from db\n" + playload);
 
     return playload;    
+}
+
+export async function insertNewPageToDb(pageName: string, owner: string) {
+    await connect(connectionString);
+    mongoose.set("strictQuery", false);
+
+    let newPage = new page({
+        name: pageName,
+        owner: owner,
+        pageContent: defaultPageContent
+    });
+
+    newPage.save();
+
+    console.log("from db\n" + newPage);
+    
 }
