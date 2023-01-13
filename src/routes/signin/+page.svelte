@@ -15,7 +15,7 @@
       <label class="label" for="password">
         <span class="label-text">Password</span>
       </label> 
-      <input name="password" type="text" placeholder="password" class="input w-full">
+      <input name="password" type="password" placeholder="password" class="input w-full">
     </div>
     <button class="mt-6 btn btn-primary">Log in</button>
   </form>

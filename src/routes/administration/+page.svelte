@@ -1,105 +1,77 @@
-
 <script lang="ts">
+  import Fa from 'svelte-fa';
+  import { faEdit, faEye, faSliders, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-    /** @type {import('./$types').PageData} */
-    export let data : any;    
-
+  import "../../global.css";
+  /** @type {import('./$types').PageData} */
+  export let data: any;
 </script>
 
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
-    <title>Admin Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap"
+    rel="stylesheet"
+  />
+  <title>Admin Page</title>
 </head>
 
-<style>
-
-    nav{
-        background-color: gray;
-        display: flex;
-        padding: 10px;
-        font-family: 'Montserrat', sans-serif;
-        color: white;
-
-    }
-
-    .nav-panel{
-        width: 50%;
-    }
-
-    .nav-user{
-        width: 50%;
-        text-align: right;
-        margin-right: 10px;;
-    }
-
-    .page{
-        width: 100%;
-        color: white;
-        background-color: darkgray;
-        border-top: 2px;
-        border-color: white;
-        border-style: solid;
-        text-align: center;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-    }
-
-    .page-name{
-        width: 60%;
-        text-align: center;
-        float: right;
-    }
-
-    .buttons{
-        width: 40%;
-        margin: 10px;
-    }
-    form > input{
-        color: black;
-        background-color: whitesmoke;
-        float: left;
-        margin-right: 10px;
-        border-radius: 7px;
-        padding: 5px;
-    }
-</style>
-
-<div>
-    <nav>
-        <div class="nav-panel">This is admin panel</div>
-        <div class="nav-user">Signed in as {data.username}</div>
-        <form action="/signin">   
-            <input type="submit" value="log out">
-        </form>
-    </nav>
-
-    <div class="page">
-        <form action="/api/newPage" method="POST">
-            <input type="text" name="name" />    
-            <input type="submit" value="Create New Page">
-        </form>
+<div class="w-full h-screen flex flex-col">
+  <nav class="flex justify-between bg-blue-500 items-center py-2 px-4 h-16">
+    <div class="font-mono text-xl font-bold text-white flex gap-2 items-center">
+      <Fa class="text-2xl" icon={faSliders}/>
+      Admin Panel
     </div>
-
-    {#each data.userPages as page}
-        <div class="page">
-            <h1 class="page-name">{page}</h1>
-            <div class="buttons">
-                <form action="/page/{page}">   
-                    <input type="submit" value="Edit Page">
+    <div class="flex items-center ">
+      <div class="mr-6 text-white">Signed in as {data.username}</div>
+      <form action="/signin">
+        <button class="btn">Log out</button>
+      </form>
+    </div>
+  </nav>
+  <div class="p-4 bg-cyan-500">
+    <form action="/api/newPage" method="POST">
+      <input class="input" type="text" name="name" placeholder="page name"/>
+      <button class="btn btn-primary ml-2">Create New Page</button>
+    </form>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="table w-full">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="text-left">Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each data.userPages as page, index}
+            <tr>
+              <th class="text-left">{index+1}</th>
+              <td class="text-left">{page}</td>
+              <td class="flex justify-end gap-2">
+                <form action="/page/{page}">
+                  <input type="hidden" name="release" value="true" />
+                  <button>
+                    <Fa class="text-2xl" icon={faEye}/>
+                  </button>
                 </form>
                 <form action="/page/{page}">
-                    <input type="hidden" name="release" value="true" />    
-                    <input type="submit" value="Release Mode">
+                  <button>
+                    <Fa class="text-2xl" icon={faEdit}/>
+                  </button>
                 </form>
-            </div>
-        </div>
-
-    {/each}    
-
+                <form action="">
+                  <input type="hidden" name="release" value="true" />
+                  <button>
+                    <Fa class="text-2xl" icon={faTrash}/>
+                  </button>
+                </form>
+              </td>
+            </tr>
+        {/each}
+      </tbody>
+    </table>
+  </div>
 </div>
-
