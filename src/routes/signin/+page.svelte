@@ -1,39 +1,23 @@
+<script>
+  import "../../global.css";
+</script>
 
-
-
-
-<style>
-    form{
-        padding-left: 40%;
-        padding-top: 20%;
-        
-    }
-
-    input{
-        background-color: lightgray;
-        margin-top: 5px;
-        border-radius: 5px;
-    }
-
-    button{
-        background-color: gray;
-        padding: 10px;
-        border-radius: 7px;
-    }
-</style>
-
-<form method="POST">
+<div class="w-full h-screen flex justify-center items-center bg-gradient-to-r from-cyan-500 to-blue-500">
+  <form class="form-control p-10 card bg-base-200 min-w-[400px]" method="POST">
+    <h1 class="pb-5 font-mono text-2xl text-center font-bold">Sign in</h1>
     <div>
-        <label>
-            Username
-            <input name="username" type="text">
-        </label>
+      <label class="label" for="username">
+        <span class="label-text">Username</span>
+      </label> 
+      <input name="username" type="text" placeholder="username" class="input w-full">
     </div>
     <div>
-        <label>
-            Password
-            <input name="password" type="password">
-        </label>
+      <label class="label" for="password">
+        <span class="label-text">Password</span>
+      </label> 
+      <input name="password" type="text" placeholder="password" class="input w-full">
     </div>
-    <button>Log in</button>
-</form>
+    <button class="mt-6 btn btn-primary">Log in</button>
+  </form>
+</div>
+
