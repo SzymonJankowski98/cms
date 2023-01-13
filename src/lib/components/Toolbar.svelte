@@ -4,7 +4,7 @@
 
 <div class="relative [&>.toolbar]:hover:flex grow">
   <slot name="content"/>
-  <div class="hidden toolbar absolute {type} top-0 justify-center items-center bg-slate-400 z-10">
+  <div class="hidden toolbar absolute {type} top-0 justify-center items-center bg-cyan-500 z-10">
     <slot name="buttons"/>
   </div>
 </div>

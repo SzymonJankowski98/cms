@@ -1,9 +1,12 @@
 <script lang="ts">
+  import Fa from 'svelte-fa';
   import { 
     faSquarePlus,
     faPenToSquare,
     faTrash,
-    faGripVertical
+    faGripVertical,
+    faFloppyDisk,
+    faCircleXmark
   } from '@fortawesome/free-solid-svg-icons'
   import { flip } from 'svelte/animate';
   import { dndzone } from 'svelte-dnd-action';
@@ -59,19 +62,6 @@
   <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 </head>
 
-<style>
-  .save-button{
-    background-color: red;
-    color: black;
-  }
-  .goback-button{
-    background-color: green;
-    color: white;
-    justify-content: center;
-    text-align: center;
-  }
-</style>
-
 <svelte:window on:mouseup={stopDrag}/>
 
 {#if data.editMode}
@@ -112,19 +102,24 @@
       </div>
     {/each}
     <EditColumnModal/>
-    <button class="save-button" on:click={()=>savePage("placeholderName")}>SAVE</button>
-    <form class="goback-button" action="/administration">
-      <input type="submit" value="Go to administration page">
-    </form>
+    <div class="fixed right-5 bottom-5 bg-cyan-500 p-2 rounded-md flex gap-2 items-center text-white z-20">
+      <button on:click={()=>savePage("placeholderName")}>
+        <Fa class="text-3xl" icon={faFloppyDisk}/>
+      </button>
+      <form class="flex items-center" action="/administration">
+        <button>
+          <Fa class="text-3xl" icon={faCircleXmark}/>
+        </button>
+      </form>
+    </div>
   </main>
 {:else}
   <main class="flex flex-col">
-    {#each $PageEditorStore as row, rowIndex (row.id)}
+    {#each $PageEditorStore as row}
         <div class="flex flex-row justify-between">
-          {#each row.content as block, columnIndex (block.id)}
-            <!-- <div class="flex grow" animate:flip="{{duration: flipDurationMs}}" style="width: {width}%;"></div> -->
+          {#each row.content as block}
             <div class="flex grow min-h-[50px]" style="width: {block.width}%;">
-                  <Block attributes={block}/>
+              <Block attributes={block}/>
             </div>
           {/each}
         </div>

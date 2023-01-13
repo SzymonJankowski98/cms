@@ -34,6 +34,6 @@
 <div class="flex justify-center items-center z-10">
   <button on:mousedown={startResize} 
    class="absolute flex cursor-grab opacity-0 hover:opacity-100 active:opacity-100 active:cursor-grabbing justify-center items-center w-6 h-full">
-    <Fa class="text-xl text-slate-400" icon={faEllipsisVertical}/>
+    <Fa class="text-xl text-cyan-500" icon={faEllipsisVertical}/>
   </button>
 </div>

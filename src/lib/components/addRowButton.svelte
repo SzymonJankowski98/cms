@@ -10,7 +10,7 @@
 <div class="relative flex justify-center items-center z-10">
   <div class="absolute w-full flex justify-center items-center opacity-0 hover:opacity-100">
     <button on:click={()=>addRow(rowIndex)} 
-      class="flex justify-center p w-8 bg-slate-400 rounded">
+      class="flex justify-center p w-8 bg-cyan-500 rounded">
        <Fa class="text-lg text-white" icon={faPlus}/>
      </button>
   </div>
