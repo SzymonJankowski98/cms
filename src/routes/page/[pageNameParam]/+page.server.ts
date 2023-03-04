@@ -13,28 +13,17 @@ export async function load(event:any) {
 
     let name : string | undefined = tokenNameMapPtr.get(event.cookies.get("authentication"));
 
-    console.log("Param");
-
-    console.log(event.params.pageNameParam);
-
     let model = await findPageByNameInDb(event.params.pageNameParam);
 
     model = model.pageContent;
-
-    console.log("model przed");
-    
-    console.log(model);
         
     if(model === null){
         PageEditorStore.subscribe(val => model = val);
     }
 
-    console.log("model po");
-    
-    console.log(model);
-
     return {
         editMode: !release && name !== undefined,
-        schema: model
+        schema: model,
+        pageName: event.params.pageNameParam
     }
 }

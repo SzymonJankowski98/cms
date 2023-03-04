@@ -165,13 +165,13 @@
           </tbody>
         </table>
       </div>
-      <p>
+      <!-- <p>
         <form on:submit|preventDefault={savePictureAsBase64}>
           <input type="file" name="picture"/>
           <input type="submit" value="send" class="btn btn-sm"/>
         </form>
         <img src={img64}>
-      <p>
+      <p> -->
       <form on:submit|preventDefault={addContent}>
         <div class="flex gap-2 mb-2">
           <label class="font-medium" for="title">Title:</label>

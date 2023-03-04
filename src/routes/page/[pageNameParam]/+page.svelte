@@ -103,7 +103,7 @@
     {/each}
     <EditColumnModal/>
     <div class="fixed right-5 bottom-5 bg-cyan-500 p-2 rounded-md flex gap-2 items-center text-white z-20">
-      <button on:click={()=>savePage("placeholderName")}>
+      <button on:click={()=>savePage(data.pageName)}>
         <Fa class="text-3xl" icon={faFloppyDisk}/>
       </button>
       <form class="flex items-center" action="/administration">
