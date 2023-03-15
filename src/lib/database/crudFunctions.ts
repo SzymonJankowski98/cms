@@ -1,6 +1,7 @@
 import mongoose, {model, connect} from "mongoose";
 import {type IUser, type IPage, userSchema, pageSchema} from "../../lib/database/schema";
 import { defaultPageContent } from "$lib/pageEditor";
+import { element } from "svelte/internal";
 
 const connectionString = "mongodb://127.0.0.1:27017/cmsDatastore";
 
@@ -22,6 +23,30 @@ export async function doPostToSavePage (schema: any, pageName: string) {
     });
     
     const json = await res.json();
+    console.log(JSON.stringify(json));
+}
+
+export async function doPostToDeletePage(pageName: string, data: any) {
+    const res = await fetch("/api/deletePage", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            pageName: pageName
+        })
+    });
+    
+    const json = await res.json();
+
+    if(res.status === 200){
+       console.log("fire");
+        
+       data.userPages = data.userPages.filter((element : string) => {return element !== pageName});
+
+       console.log(data.userPages);
+       
+    }
     console.log(JSON.stringify(json));
 }
 
@@ -116,5 +141,19 @@ export async function insertNewPageToDb(pageName: string, owner: string) {
     newPage.save();
 
     console.log("from db\n" + newPage);
+    
+}
+
+export async function deletePageInDb(pageName: string, owner: string) {
+    await connect(connectionString);
+    mongoose.set("strictQuery", false);
+
+    let pageToRemove = await page.findOne({name: pageName, owner: owner});
+
+    console.log("pageToRemobe:\n" + pageToRemove);
+
+    pageToRemove?.remove();
+
+    console.log("from db\n page removed");
     
 }

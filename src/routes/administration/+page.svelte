@@ -3,6 +3,7 @@
   import { faEdit, faEye, faSliders, faTrash } from '@fortawesome/free-solid-svg-icons';
 
   import "../../global.css";
+  import { doPostToDeletePage } from '$lib/database/crudFunctions';
   /** @type {import('./$types').PageData} */
   export let data: any;
 </script>
@@ -63,8 +64,10 @@
                   </button>
                 </form>
                 <form action="">
-                  <input type="hidden" name="release" value="true" />
-                  <button>
+                  <input type="hidden" />
+                  <button on:click={() => {
+                    doPostToDeletePage(page, data)
+                  }}>
                     <Fa class="text-2xl" icon={faTrash}/>
                   </button>
                 </form>
