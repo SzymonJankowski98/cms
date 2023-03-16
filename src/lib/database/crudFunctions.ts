@@ -3,7 +3,8 @@ import {type IUser, type IPage, userSchema, pageSchema} from "../../lib/database
 import { defaultPageContent } from "$lib/pageEditor";
 import { element } from "svelte/internal";
 
-const connectionString = "mongodb://127.0.0.1:27017/cmsDatastore";
+// const connectionString = import.meta.env.VITE_CONNECTION_STRING;
+const connectionString = "mongodb+srv://admin:admin@cluster0.bysxl.mongodb.net/cmsDatastore"
 
 const page = model<IPage>("Page", pageSchema);
 
