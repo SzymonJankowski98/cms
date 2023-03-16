@@ -2,7 +2,8 @@ import { dev } from '$app/environment';
 import { tokenNameMap } from '$lib/api/authentication';
 import { findUserInDb } from '$lib/database/crudFunctions';
 import { redirect } from '@sveltejs/kit';
-import {MD5} from 'crypto-js';
+import crypto from 'crypto-js';
+const { MD5 } = crypto;
 
 
 /** @type {import('./$types').PageServerLoad} */
