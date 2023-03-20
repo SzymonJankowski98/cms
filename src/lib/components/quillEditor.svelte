@@ -1,7 +1,4 @@
 <script>
-  import { onMount } from "svelte";
-  import Quill from "quill";
-
   const modules = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
@@ -22,16 +19,6 @@
   };
 
   export let content = "";
-
-  onMount(() => {
-    let editor = new Quill("#editor", {
-      modules: modules,
-      theme: 'snow',
-    });
-
-    editor.root.innerHTML = content;
-    editor.on("text-change", () => content = editor.root.innerHTML);
-	});
 </script>
 
 <head>
